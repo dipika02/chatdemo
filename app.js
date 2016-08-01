@@ -8,7 +8,8 @@ var express = require('express'),
 	ConnectMongo = require('connect-mongo')(session),
 	mongoose = require('mongoose').connect(config.dbURL),
 	passport = require('passport'),
-	FacebookStrategy = require('passport-facebook').Strategy
+	FacebookStrategy = require('passport-facebook').Strategy,
+	groups = []
 
 app.set('views',path.join(__dirname,'views'));
 app.engine('html',require('hogan-express'));
@@ -53,8 +54,19 @@ app.use(session({Secret:config.sessionSecret}))
 app.use(passport.initialize());
 app.use(passport.session());
 require('./auth/passportAuth.js')(passport ,FacebookStrategy,config,mongoose);
-require('./routes/routes.js')(express,app,passport);
-app.listen(8000, function () {
-  console.log('ChatApplication Example app listening on port 8000!');
-  console.log('Mode: ' + env);
-});
+require('./routes/routes.js')(express,app,passport,config);
+// app.listen(8000, function () {
+//   console.log('ChatApplication Example app listening on port 8000!');
+//   console.log('Mode: ' + env);
+// });
+
+
+app.set('port',process.env.PORT || 8000);
+var server = require('http').createServer(app);
+var io = require('socket.io').listen(server);
+require('./socket/socket.js')(io,groups);
+
+server.listen(app.get('port'),function(){
+  console.log('ChatApplication Example app listening on port 8000!'+app.get('port'));
+
+})

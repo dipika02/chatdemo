@@ -1,4 +1,4 @@
-module.exports = function(express,app,passport){
+module.exports = function(express,app,passport,config){
 	var router = express.Router();
 		router.get('/',function(  req,res, next){
   res.render('index',{title:'welcome to chat'});
@@ -11,8 +11,8 @@ var isAuthenticated = function (req,res,next) {
     console.log("Authenticated");
     return next();
   }
-  console.log("Not Authenticated");
-  res.redirect('/');
+  // console.log("Not Authenticated");
+   res.redirect('/');
 }
 
 router.get('/auth/facebook',passport.authenticate('facebook'));
@@ -26,13 +26,9 @@ router.get('/auth/facebook/callback',passport.authenticate('facebook', { failure
 
 router.get('/chatIndex',isAuthenticated,function(req,res, next){
 	
-  res.render('chatIndex',{title:'welcome to chat.......',user:req.user});
+  res.render('chatIndex',{title:'welcome to chat.......', user:req.user ,config:config});
 })
 
-router.get('/logout',function(res,req,next){
-	req.logout();
-	res.redirect('/');
-})
 
 // router.get('/setcolor',function(req,res,next){
 
@@ -44,6 +40,13 @@ router.get('/logout',function(res,req,next){
 // 	res.send(' Favourite Color !'+ (req.session.favColor==undefined?" Not Found":req.session.favColor));
 
 // })
+
+router.get('/logout', function(req, res,next) {
+        console.log("logging out!");
+        req.logout();
+        // req.session.destroy();
+        res.redirect('/');
+    });
 app.use('/',router);
 
 }

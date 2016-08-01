@@ -5,5 +5,6 @@
 		"appID":"517746208420255",
 		"appSecret":"9a2c2e7c0dffd90b438cb68e83c94054",
 		"callbackURL":"http://localhost:8000/auth/facebook/callback"
-	}
+	},
+	"host":"http://localhost:8000"
 }

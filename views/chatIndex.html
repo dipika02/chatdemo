@@ -3,6 +3,41 @@
 <head>
 	<title>{{title}}</title>
 	<link rel="stylesheet" type="text/css" href="../css/chatIndex.css">
+<script src="/socket.io/socket.io.js"></script>
+<script src="//code.jquery.com/jquery-1.11.0.min.js"></script>
+<script type="text/javascript">
+	
+	$(function(){
+		var host = '{{config.host}}';
+		var socket =io.connect(host + '/grouplist');
+
+		socket.on('connect',function(){
+			console.log("connection is Estabilished !!");
+		})
+
+
+		socket.on('groupupdate',function(data){
+			var gData = JSON.parse(data);
+				// $('.grouplist').html('');			
+			for(var i=0; i<gData.length; i++){
+				var str = '<a href="group/' + gData[i].group_number + '"><li>'+ gData[i].group_name + '</li></a>';
+
+				$('.grouplist').prepend(str);
+				   
+ 			}
+		})
+
+		$(document).on('click','#create',function(){
+			var group_name= $('.newGroup').val();
+			if(group_name!=''){
+				var group_number= parseInt(Math.random()*10000);
+				socket.emit('newgroup',{group_name:group_name,group_number:group_number});
+				$('.newGroup').val('');
+			}
+		})
+
+	})
+</script>
 </head>
 <body>
 	<div class="container">
@@ -10,7 +45,7 @@
 		<div class="userbox">
 			<!-- <img src="../img/download (2).jpg" class="userImg"> -->
 			<img src="{{user.profilePic}}" class="userImg">
-			<h3 class="userName">{{user.fullName}} | <a href="#">logoOut</a></h3>
+			<h3 class="userName">{{user.fullname}} | <a href="/logout">logout</a></h3>
 		</div>
 		<div class="new_group">
 			<input type="text" class="newGroup" autocomplete="off">
@@ -19,9 +54,9 @@
 		</div>
 		<div class="grouplist">
 			<ul>
-				<a href="#"><li>school</li></a>
+				<!-- <a href="#"><li>school</li></a>
 				<a href="#"><li>clg</li></a>
-				<a href="#"><li>class</li></a>
+				<a href="#"><li>class</li></a> -->
 			</ul>
 		</div>
 	</div>
