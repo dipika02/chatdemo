@@ -1,0 +1,9 @@
+{
+	"dbURL":"mongodb://chatuser:1234@ds027145.mlab.com:27145/chat",
+	"sessionSecret":"dipika1234567@@@",
+	"fb":{
+		"appID":"517746208420255",
+		"appSecret":"9a2c2e7c0dffd90b438cb68e83c94054",
+		"callbackURL":"http://localhost:8000/auth/facebook/callback"
+	}
+}
