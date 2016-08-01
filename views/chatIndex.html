@@ -18,20 +18,27 @@
 
 		socket.on('groupupdate',function(data){
 			var gData = JSON.parse(data);
-				// $('.grouplist').html('');			
-			for(var i=0; i<gData.length; i++){
-				var str = '<a href="group/' + gData[i].group_number + '"><li>'+ gData[i].group_name + '</li></a>';
+			// console.log(gData + "gData999");
+				$('.grouplist').html('');			
+			
+			for(var i = 0; i < gData.length; i++){
+				
+				 var str = '<a href="group/' + gData[i].group_number + '"><li>'+ gData[i].group_name + '</li></a>';
 
 				$('.grouplist').prepend(str);
-				   
+				// $('.grouplist').append(str);
  			}
 		})
 
 		$(document).on('click','#create',function(){
 			var group_name= $('.newGroup').val();
+			// console.log(group_name + "group_name11111");
 			if(group_name!=''){
-				var group_number= parseInt(Math.random()*10000);
+				console.log(group_name+"group_name");
+				var group_number= parseInt(Math.random() *10000);
+				console.log(group_number +"group_number");
 				socket.emit('newgroup',{group_name:group_name,group_number:group_number});
+				// socket.send('newgroup',{group_name:group_name,group_number:group_number});
 				$('.newGroup').val('');
 			}
 		})
@@ -52,8 +59,8 @@
 				<button id="create">Create Group</button>
 			<!-- </input> -->
 		</div>
-		<div class="grouplist">
-			<ul>
+		<div class="cr-grouplist">
+			<ul class="grouplist">
 				<!-- <a href="#"><li>school</li></a>
 				<a href="#"><li>clg</li></a>
 				<a href="#"><li>class</li></a> -->
