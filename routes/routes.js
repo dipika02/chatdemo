@@ -1,18 +1,18 @@
-module.exports = function(express,app,passport,config){
+module.exports = function(express,app,passport,config,groups){
 	var router = express.Router();
-		router.get('/',function(  req,res, next){
-  res.render('index',{title:'welcome to chat'});
-})
+  router.get('/',function(  req,res, next){
+    res.render('index',{title:'welcome to chat'});
+  })
 
-	
 
-var isAuthenticated = function (req,res,next) {
-  if (req.isAuthenticated()) {
-    console.log("Authenticated");
-    return next();
-  }
+
+  var isAuthenticated = function (req,res,next) {
+    if (req.isAuthenticated()) {
+      console.log("Authenticated");
+      return next();
+    }
   // console.log("Not Authenticated");
-   res.redirect('/');
+  res.redirect('/');
 }
 
 router.get('/auth/facebook',passport.authenticate('facebook'));
@@ -29,6 +29,26 @@ router.get('/chatIndex',isAuthenticated,function(req,res, next){
   res.render('chatIndex',{title:'welcome to chat.......', user:req.user ,config:config});
 })
 
+router.get('/groupChat/:id',isAuthenticated,function(req,res, next){
+  var group_name = findTitle(req.params.id);
+  // console.log(group_name+"group_name123456");
+  res.render('groupChat',{user:req.user,group_number:req.params.id,group_name:group_name,config:config})
+})
+
+function findTitle(groupChat_id){
+  var n=0;
+  // while( n < groups)
+  while(n<groups.length){
+    if(groups[n].group_number == groupChat_id){
+      // console.log(groupChat_id+'groupChat_id');
+      return groups[n].group_name;
+      break;
+    }else{
+      n++;
+      continue;
+    }
+  }
+}
 
 // router.get('/setcolor',function(req,res,next){
 
@@ -41,12 +61,13 @@ router.get('/chatIndex',isAuthenticated,function(req,res, next){
 
 // })
 
+
 router.get('/logout', function(req, res,next) {
-        console.log("logging out!");
-        req.logout();
+  console.log("logging out!");
+  req.logout();
         // req.session.destroy();
         res.redirect('/');
-    });
+      });
 app.use('/',router);
 
 }

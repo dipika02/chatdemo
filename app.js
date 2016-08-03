@@ -54,7 +54,7 @@ app.use(session({Secret:config.sessionSecret}))
 app.use(passport.initialize());
 app.use(passport.session());
 require('./auth/passportAuth.js')(passport ,FacebookStrategy,config,mongoose);
-require('./routes/routes.js')(express,app,passport,config);
+require('./routes/routes.js')(express,app,passport,config,groups);
 // app.listen(8000, function () {
 //   console.log('ChatApplication Example app listening on port 8000!');
 //   console.log('Mode: ' + env);
