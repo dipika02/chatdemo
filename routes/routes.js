@@ -31,8 +31,9 @@ router.get('/chatIndex',isAuthenticated,function(req,res, next){
 
 router.get('/groupChat/:id',isAuthenticated,function(req,res, next){
   var group_name = findTitle(req.params.id);
-  // console.log(group_name+"group_name123456");
+  console.log(group_name + "group_name123456");
   res.render('groupChat',{user:req.user,group_number:req.params.id,group_name:group_name,config:config})
+// console.log({user:req.user} + "updateeddd")
 })
 
 function findTitle(groupChat_id){
@@ -40,7 +41,9 @@ function findTitle(groupChat_id){
   // while( n < groups)
   while(n<groups.length){
     if(groups[n].group_number == groupChat_id){
-      // console.log(groupChat_id+'groupChat_id');
+      console.log(groupChat_id + 'groupChat_id');
+      console.log(groups[n].group_name +  'groups[n].group_name');
+
       return groups[n].group_name;
       break;
     }else{
@@ -49,6 +52,7 @@ function findTitle(groupChat_id){
     }
   }
 }
+
 
 // router.get('/setcolor',function(req,res,next){
 

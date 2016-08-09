@@ -1,8 +1,50 @@
-.new{
-	/*margin margin-top: 100%;*/
-	margin-left: 40%;
-	/*position: absolute;*/
-	position: center;
-	/*margin-right: 50%;*/
-	/*height: 100%;*/
+@import "theme.less";
+
+.container {
+  
+
+  	    margin: 25%;
+    margin-top: 25%;
+    margin-right: 25%;
+    margin-bottom: 25%;
+    margin-left: 25%;
+    background: @base-color; 
+    height: 100%;
+    flex-direction: column;
+    /*display: flex;*/
+    display: inline-block;
+
+    @start-color: @base-color;
+    @end-color: darken(@base-color, 15%);
+
+    background: @start-color; /* Old browsers */
+    background: -moz-linear-gradient(top,  @start-color 0%, @end-color 100%); /* FF3.6-15 */
+    background: -webkit-linear-gradient(top,  @start-color 0%,@end-color 100%); /* Chrome10-25,Safari5.1-6 */
+    background: linear-gradient(to bottom,  @start-color 0%,@end-color 100%); /* W3C, IE10+, FF16+, Chrome26+, Opera12+, Safari7+ */
+    filter: progid:DXImageTransform.Microsoft.gradient( startColorstr=@start-color, endColorstr=@end-color,GradientType=0 ); /* IE6-9 */
+
 }
+
+.container{
+
+  flex-direction: column;
+  display: flex;
+
+  height: 100%;
+  width:100%;
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

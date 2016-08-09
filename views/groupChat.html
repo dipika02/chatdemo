@@ -5,6 +5,16 @@
 	<link rel="stylesheet" type="text/css" href="../css/groupChat.css">
 	<script src="//code.jquery.com/jquery-1.11.0.min.js"></script>
 	<script src="/socket.io/socket.io.js"></script>
+	<style>
+		/*img.userImg { height: 24px; width: 24px; margin-right: 4px; }*/
+		/*img.userImg {float:left; height: 24px; width: 24px; margin-right: 4px;}*/
+		/*.pic{float:left; height: 24px; width: 24px; margin-right: 4px;}*/
+		/*.messages li { color:#F00; display:inline ;float:right;}*/
+		.msg { color:#F00; display:inline ;float:right;margin-right: 80%;}
+		​
+		/*img.userImg{float:right;white-space:nowrap; display:inline; display:inline; white-space:nowrap;}*/
+	</style>
+
 	<script >
 		
 		$(function(){
@@ -35,57 +45,72 @@
 			// })
 			messages.on('messagesfeed',function(data){
 				var msgs = JSON.parse(data);
-				updateMessageFeed(msgs.userPic,msgs.message);
+				updateMessageFeed(msgs.userPic, msgs.message);
 				console.log(msgs+"msgs");
 				// console.log(str+"str updateMessageFeed JSON.parser");
 			})
 			
 
 			function updateMessageFeed(userPic, message){
-				var str = '<li>';
-				str+= '<div class="msgBox">';
+				// var str = '<li>';
+				str= '<div class="msgBox">';
 				str+= '<div class="pic"><img src="'+userPic+'"></div>';
 				str+= '<div class="msg"><p>'+message+'<p></div>';
 				str+= '</div>';
-				str+='</li>';
+				// str+='</li>';
 				$(str).appendTo($('.messages'));
 				// $(str).prependTo($('.messages'));
 				// $(str).hide().prependTo($('.messages')).slideDown(100);
-				// console.log(str+"strupdateMessageFeed");
 			}
+			messages.on('updateUsersList',function(data){
+				var userlist= JSON.parse(data);
+				$('.group_user').html('');
+				for(var n = 0;n < userlist.length; n++){
+					var str = '<li><img src=" ' +userlist[n].userPic + '"><h5>'+userlist[n].user +'</h5></li>'; 
+					$(str).appendTo($('.group_user'));
+
+				}
+			})
+			
+			setInterval(function(){ 
+				messages.emit('updateList', {group:groupNum});
+				console.log("active group no" + {group:groupNum});
+			},15000);
 		})
 
 	</script>
 </head>
 <body>
-	<div class="container">
-		<h1>Chat Application</h1>
-		<div class="userbox">
+	<div class="container" style="border:1px solid rgba(0,0,0,0.5);">
+		<h1 >Chat Application</h1>
+		<br>
+		<div class="userbox"style="border:2px solid rgba(0,0,0,0.2);">
 			<img src="{{user.profilePic}}" class="userImg">
 			<h3 class="userName">{{user.fullname}} | <a href="/logout">logout</a> |  <a href="/chatIndex">moregroup</a></h3>
 		</div>
 		<div class="new_group_name">
 			<h5>{{group_name}}</h5>
 		</div>
-		<!-- </input> -->
-		<div class="Messagelist">
-			<ul class="messages">
+		<div class="Messagelist" style="width: 100%;">
+			<ul class="messages" style="width: 1000px;
+			height: 350px;">
 				<!-- <li>
 					<div class="msgBox">
 						<div class="pic"><img src="{{user.profilePic}}">{{user.fullname}}</div>
 						<div class="msg"><p>Hellooo.....<p></div>
 					</div>
 
-				</li>
-			-->			</ul>
+				</li> -->
+			</ul>
 		</div>
-		<div class="group_user">
-			<ui>
-				<li><img src="{{user.profilePic}}"><h5>{{user.fullname}}</h5></li>
-			</ui>
+		<div >
+			<!-- <ul class="group_user" style="border:2px solid rgba(0,0,0,0.2);"> -->
+				<ul class="group_user" >
+				<!-- <li><img src="{{user.profilePic}}"><h5>{{user.fullname}}</h5></li> -->
+			</ul>
 		</div>
 		<div class="rm-newmessage">
-			<input type="text" class="newmessage" autocomplete="off" placeholder="Type Your Message And Press Enter !"></input>
+			<input type="text" class="newmessage" autocomplete="off" placeholder="Type Your Message And Press Enter !" style="padding: 10px!important;width: 95%;height: 25px;margin-top: 10px;margin-left: 00px;padding-right: 30px!important;"></input>
 		</div>
 	</div>
 </body>

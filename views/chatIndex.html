@@ -3,69 +3,69 @@
 <head>
 	<title>{{title}}</title>
 	<link rel="stylesheet" type="text/css" href="../css/chatIndex.css">
-<script src="/socket.io/socket.io.js"></script>
-<script src="//code.jquery.com/jquery-1.11.0.min.js"></script>
-<script type="text/javascript">
-	
-	$(function(){
-		var host = '{{config.host}}';
-		var socket =io.connect(host + '/grouplist');
+	<script src="/socket.io/socket.io.js"></script>
+	<script src="//code.jquery.com/jquery-1.11.0.min.js"></script>
+	<script type="text/javascript">
+		
+		$(function(){
+			var host = '{{config.host}}';
+			var socket =io.connect(host + '/grouplist');
 
-		socket.on('connect',function(){
-			console.log("connection is Estabilished !!");
-		})
+			socket.on('connect',function(){
+				console.log("connection is Estabilished !");
+			})
 
 
-		socket.on('groupupdate',function(data){
-			var gData = JSON.parse(data);
-			// console.log(gData + "gData999");
+			socket.on('groupupdate',function(data){
+				var gData = JSON.parse(data);
 				$('.grouplist').html('');			
-			
-			for(var i = 0; i < gData.length; i++){
-				
-				 var str = '<a href="groupChat/' + gData[i].group_number + '"><li>'+ gData[i].group_name + '</li></a>';
 
-				$('.grouplist').prepend(str);
+				for(var i = 0; i < gData.length; i++){
+
+					var str = '<a href="groupChat/' + gData[i].group_number + '"><li>'+ gData[i].group_name + '</li></a>';
+
+					$('.grouplist').prepend(str);
 				// $('.grouplist').append(str);
- 			}
+			}
 		})
 
-		$(document).on('click','#create',function(){
-			var group_name= $('.newGroup').val();
+			$(document).on('click','#create',function(){
+				var group_name= $('.newGroup').val();
 			// console.log(group_name + "group_name11111");
 			if(group_name!=''){
 				console.log(group_name+"group_name");
 				var group_number= parseInt(Math.random() *10000);
 				console.log(group_number +"group_number");
 				socket.emit('newgroup',{group_name:group_name,group_number:group_number});
-				// socket.send('newgroup',{group_name:group_name,group_number:group_number});
 				$('.newGroup').val('');
 			}
 		})
 
-	})
-</script>
+		})
+	</script>
 </head>
 <body>
-	<div class="container">
-		<h1>Chat Application</h1>
-		<div class="userbox">
-			<!-- <img src="../img/download (2).jpg" class="userImg"> -->
-			<img src="{{user.profilePic}}" class="userImg">
-			<h3 class="userName">{{user.fullname}} | <a href="/logout">logout</a></h3>
+	<div class="container" style="border:2px solid rgba(0,0,0,0.5);
+	height: 100%; margin: 15px; ">
+	<h1>Chat Application</h1>
+	<br>
+	<div class="userbox" style="border:2px solid rgba(0,0,0,0.2);">
+		<!-- <img src="../img/download (2).jpg" class="userImg"> -->
+		<img  src="{{user.profilePic}}" class="userImg">
+		<h3 class="userName">{{user.fullname}} | <a href="/logout" >logout</a></h3>
+	</div>
+	<div class="new_group" style="border:1px solid rgba(0,0,0,0.3); ">
+	<span style="margin-top:-50px;margin-left: 65px; ">
+			<input type="text" class="newGroup" autocomplete="off" style="padding: 10px!important;width: 40%;height: 20px;margin-top: 10px;margin-bottom:10px;margin-left: 10px;">
+	
+			<button id="create" style="padding:15px;">Create Group</button></span>
 		</div>
-		<div class="new_group">
-			<input type="text" class="newGroup" autocomplete="off">
-				<button id="create">Create Group</button>
-			<!-- </input> -->
-		</div>
-		<div class="cr-grouplist">
+		<div class="cr-grouplist" style="width: 1000px;height: 200px;position: relative;">
 			<ul class="grouplist">
-				<!-- <a href="#"><li>school</li></a>
-				<a href="#"><li>clg</li></a>
-				<a href="#"><li>class</li></a> -->
+				
 			</ul>
 		</div>
 	</div>
 </body>
 </html>
+

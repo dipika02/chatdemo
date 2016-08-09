@@ -1,9 +1,9 @@
 var express = require('express'),
-	app = express(),
-	path = require('path'),
-	cookieParser = require('cookie-parser'),
-	session = require('express-session'),
-	config = require('./config/config.js'),
+app = express(),
+path = require('path'),
+cookieParser = require('cookie-parser'),
+session = require('express-session'),
+config = require('./config/config.js'),
 	// ConnectMongo = require('connect-mongo')(session),
 	ConnectMongo = require('connect-mongo')(session),
 	mongoose = require('mongoose').connect(config.dbURL),
@@ -11,35 +11,35 @@ var express = require('express'),
 	FacebookStrategy = require('passport-facebook').Strategy,
 	groups = []
 
-app.set('views',path.join(__dirname,'views'));
-app.engine('html',require('hogan-express'));
-app.set('view engine','html');
-app.use(express.static(path.join(__dirname, 'public')));
-app.use(cookieParser());
-var env = process.env.NODE_ENV || 'development';
+	app.set('views',path.join(__dirname,'views'));
+	app.engine('html',require('hogan-express'));
+	app.set('view engine','html');
+	app.use(express.static(path.join(__dirname, 'public')));
+	app.use(cookieParser());
+	var env = process.env.NODE_ENV || 'development';
 
-if(env === 'development'){
+	if(env === 'development'){
 	//dev specific setting
 	console.log("temp value");
-	console.log(config.sessionSecret);
-app.use(session({secret:config.sessionSecret}))
+	// console.log(config.sessionSecret);
+	// app.use(session({secret:config.sessionSecret}))
 	console.log("temp value5555"+config.sessionSecret);
 
-app.use(session({
-	Secret:config.sessionSecret,
+	app.use(session({
+		secret:config.sessionSecret,
 		store:new ConnectMongo({
 			// url:config.dbURL,
 			mongooseConnection:mongoose.connections[0],
 			stringfy:true
 
 		})
-		}))
-			console.log("config.dbURL"+config.dbURL)
+	}))
+	console.log("config.dbURL"+config.dbURL)
 
 } else{
 	//production specific setting1 
 	console.log("temp value....1234");
-app.use(session({Secret:config.sessionSecret}))
+	app.use(session({Secret:config.sessionSecret}))
 
 // app.use(session({
 // 	Secret:config.sessionSecret,
@@ -67,6 +67,6 @@ var io = require('socket.io').listen(server);
 require('./socket/socket.js')(io,groups);
 
 server.listen(app.get('port'),function(){
-  console.log('ChatApplication Example app listening on port 8000!'+app.get('port'));
+	console.log('ChatApplication Example app listening on port 8000!'+app.get('port'));
 
 })

@@ -1,0 +1,118 @@
+
+body{
+font-family:Arial, Helvetica, sans-serif; 
+font-size:13px;
+}
+/*.messages {
+border: 1px solid;
+margin: 10px 0px;
+padding:15px 10px 15px 50px;
+background-repeat: no-repeat;
+background-position: 10px center;
+}
+.messages {
+color: #00529B;
+background-color: #BDE5F8;
+background-image: '{{user.profilePic}}';
+}*/
+.messages li{
+  /*padding: 40px;
+  background-image: 31 * 31px;
+  position: left-center;
+  border:1px solid;
+  /*padding-right: 15px;*/
+  /*padding:15px 10px 15px 50px;*/*/
+  border: 1px solid;
+margin: 10px 0px;
+padding:15px 10px 15px 50px;
+background-repeat: no-repeat;
+background-position: 10px center;
+}
+/*.success {
+color: #4F8A10;
+background-color: #DFF2BF;
+background-image:url('success.png');
+}
+.warning {
+color: #9F6000;
+background-color: #FEEFB3;
+background-image: url('warning.png');
+}
+.error {
+color: #D8000C;
+background-color: #FFBABA;
+background-image: url('error.png');
+}*/
+
+/*.container {
+background-color: yellow;
+   display: -webkit-flex;
+   display: flex;
+   -webkit-align-items: center;
+   align-items: center;
+   -webkit-justify-content: center;
+   justify-content: center;
+   /* You can set flex-wrap and flex-direction individually */
+   /*-webkit-flex-direction: row;*/
+   /*flex-direction: row;*/
+   /*-webkit-flex-wrap: wrap;*/
+   /*flex-wrap: wrap;*/
+   /* Or do it all in one line with flex flow */
+   /*-webkit-flex-flow: row wrap;*/
+   /*flex-flow: row wrap;*/
+   /* tweak the where items line up on the row */
+   /* valid values are: flex-start, flex-end, space-between, space-around, stretch */
+   /*-webkit-align-content: flex-end;*/
+   /*align-content: flex-end;*/
+/*}*/
+
+
+/*.container{
+  border:1px solid rgba(0,0,0,0.5);
+  flex-wrap: nowrap | wrap | wrap-reverse;
+}*/
+.messages li{
+
+}
+.grouplist li{
+  padding: 15px;
+  border:1px solid rgba(0,0,0,0.1);
+  background: #fff;
+}
+.new_group_name{
+  display: inline-block;
+  /*padding: 2px;*/
+  border: 2px solid #FCB326;
+  border-radius: 6px;
+  box-shadow:
+    0 2px 1px rgba(0, 0, 0, 0.2), 
+    inset 0 2px 1px rgba(0, 0, 0, 0.2);
+    
+   /*Font styles */
+  text-decoration: none;
+  font-size: 14px;
+  text-transform: uppercase;
+  color: #222;
+}
+.new_group_name:hover  { border-color: #FDD68B; }
+.new_group_name:active { border-color: #FEE8BD; }
+
+
+.userName {
+  display: inline-block;
+  margin: 0 0.2em;
+  padding: 3px;
+  background: #97CAF2;
+  border-radius: 2px;
+  transition: all 0.3s ease-out;
+
+  /* Font styles */
+  text-decoration: none;
+  font-weight: bold;
+  color: white;
+}
+
+.userName:hover   { background: #53A7EA; }
+.userName:active  { background: #C4E1F8; }
+.userName:visited { background: #F2BF97; }
+
